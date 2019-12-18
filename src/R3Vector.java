@@ -32,6 +32,12 @@ public class R3Vector {
         return new R3Vector(k * a.x, k * a.y, k* a.z);
     }
 
+    public void mult(double k) {     // умножение на число
+        x = x*k;
+        y = y*k;
+        z = z*k;
+    }
+
     public static double product(R3Vector a, R3Vector b) {  // скалярное произведение - абстрактное число
         return a.x * b.x + a.y * b.y + a.z * b.z;
     }
@@ -51,19 +57,25 @@ public class R3Vector {
 
     public void rotateOX(double angle) {
         double fakeY = y;
-        y = y*Math.cos(Math.toRadians(angle)) + z*Math.sin(Math.toRadians(angle));
-        z = -(fakeY*Math.sin(Math.toRadians(angle)) + z*Math.cos(Math.toRadians(angle)));
+        y = y*Math.cos(Math.toRadians(angle))+z*Math.sin(Math.toRadians(angle));
+        z = -(fakeY*Math.sin(Math.toRadians(angle))+z*Math.cos(Math.toRadians(angle)));
     }
 
     public void rotateOY(double angle) {
         double fakeX = x;
-        y = y*Math.cos(Math.toRadians(angle)) + z*Math.sin(Math.toRadians(angle));
-        z = -(fakeX*Math.sin(Math.toRadians(angle)) + z*Math.cos(Math.toRadians(angle)));
+        x = x*Math.cos(Math.toRadians(angle))+z*Math.sin(Math.toRadians(angle));
+        z = -(fakeX*Math.sin(Math.toRadians(angle))+z*Math.cos(Math.toRadians(angle)));
     }
 
     public void rotateOZ(double angle) {
-        double fakeZ = z;
-        y = y*Math.cos(Math.toRadians(angle)) + z*Math.sin(Math.toRadians(angle));
-        z = -(fakeZ*Math.sin(Math.toRadians(angle)) + z*Math.cos(Math.toRadians(angle)));
+        double fakeX = x;
+        x = x*Math.cos(Math.toRadians(angle))-y*Math.sin(Math.toRadians(angle));
+        y = -(fakeX*Math.sin(Math.toRadians(angle))+y*Math.cos(Math.toRadians(angle)));
+    }
+
+    public void rotate(double angleX, double angleY, double angleZ) {
+        rotateOX(angleX);
+        rotateOY(angleY);
+        rotateOZ(angleZ);
     }
 }
